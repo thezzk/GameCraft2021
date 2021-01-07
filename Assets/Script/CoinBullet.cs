@@ -1,0 +1,28 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CoinBullet : MonoBehaviour
+{
+    float speed = 10f;
+    private float lifeTime = 10f;
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        lifeTime -= Time.deltaTime;
+        if(lifeTime < 0)
+            Destroy(gameObject);
+
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        PlayerControl hitPlayer = other.GetComponent<PlayerControl>();
+        if(hitPlayer != null)
+        {
+            hitPlayer.coinNum = (int)(hitPlayer.coinNum * 0.5f);
+            Destroy(gameObject);
+        }
+    }
+}
