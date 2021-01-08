@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CoinBullet : MonoBehaviour
 {
@@ -25,6 +26,12 @@ public class CoinBullet : MonoBehaviour
         if (hitPlayer != null)
         {
             hitPlayer.healthBar.TakeDamage(damage);
+            Rigidbody _rb = hitPlayer.GetComponent<Rigidbody>();
+            // NavMeshAgent _agent = hitPlayer.GetComponent<NavMeshAgent>();
+            // _rb.isKinematic = false;
+            // _agent.enabled = false;
+            _rb.velocity = -transform.forward * 10;
+
             //hitPlayer.coinNum = (int)(hitPlayer.coinNum * 0.5f);
         }
         Debug.Log(other.name);
