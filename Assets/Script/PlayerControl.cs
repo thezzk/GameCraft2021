@@ -85,7 +85,7 @@ public class PlayerControl : MonoBehaviour
         {
             healthBar.SetHealth(100f);
             coinNum = (int)(coinNum * 0.5f);
-            GetComponent<NavMeshAgent>().Warp(new Vector3(24f, gameObject.transform.position.y, 9.3f));
+            GetComponent<NavMeshAgent>().Warp(new Vector3(104.12f, -104.4f, 82.32f));
             resetTime = 3f;
         }
 

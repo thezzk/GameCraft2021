@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CoinBullet : MonoBehaviour
 {
-    float speed = 10f;
+    [SerializeField] float speed = 50f;
     private float lifeTime = 10f;
 
     [SerializeField] int damage = 50;

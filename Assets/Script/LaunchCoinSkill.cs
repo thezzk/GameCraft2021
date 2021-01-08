@@ -7,8 +7,8 @@ public class LaunchCoinSkill : ISkill
     public bool begin(GameObject[] objs)
     {
         PlayerControl player = objs[0].GetComponent<PlayerControl>();
-        if(player.coinNum <= 0) return false;
-        player.coinNum -= 1;
+        //if(player.coinNum <= 0) return false;
+        // player.coinNum -= 1;
         GameObject coinBulletPref = objs[1];
         GameObject firePoint = objs[2];
         GameObject.Instantiate(coinBulletPref, firePoint.transform.position, firePoint.transform.rotation);
@@ -17,7 +17,7 @@ public class LaunchCoinSkill : ISkill
 
     public void end()
     {
-        
+
     }
 
     public IEnumerator running()
