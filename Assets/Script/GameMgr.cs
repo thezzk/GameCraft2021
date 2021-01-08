@@ -8,54 +8,54 @@ public class GameMgr : MonoBehaviour
     [SerializeField] Terrain genTerrain;
     [SerializeField] int maxCoin;
     [SerializeField] GameObject coinGenPoints;
-    [SerializeField] float GameTime = 50f;   
+    [SerializeField] float GameTime = 50f;
     [HideInInspector] public bool gameRunning = true;
     [HideInInspector] public float currentGameTime;
 
     private int coinCnt = 0;
-    
+
 
     IEnumerator waitAndGenCoin()
     {
-        while(gameRunning)
+        while (gameRunning)
         {
-            yield return new WaitForSeconds(3f);
-            if(coinCnt < maxCoin)
+            yield return new WaitForSeconds(1f);
+            if (coinCnt < maxCoin)
             {
                 int genPointIndex = Random.Range(0, coinGenPoints.transform.childCount);
                 Transform genPointTran = coinGenPoints.transform.GetChild(genPointIndex);
                 var coin = Instantiate(coinPref, genPointTran.position, Quaternion.identity);
-                coin.GetComponent<Coin>().onGainedCoin += DecCoinCnt;
+                coin.transform.GetChild(0).GetComponent<Coin>().onGainedCoin += DecCoinCnt;
                 coinCnt++;
             }
 
         }
     }
 
-    private void DecCoinCnt()
+    public void DecCoinCnt()
     {
         //Debug.Log("coin --");
         coinCnt--;
     }
 
-    private void Start() 
+    private void Start()
     {
         StartCoroutine(waitAndGenCoin());
         currentGameTime = GameTime;
     }
 
-    private void Update() 
+    private void Update()
     {
-        if(gameRunning)
+        if (gameRunning)
         {
             currentGameTime -= Time.deltaTime;
         }
-        if(currentGameTime < 0)
+        if (currentGameTime < 0)
         {
             currentGameTime = 0;
             gameRunning = false;
         }
     }
 
-    
+
 }

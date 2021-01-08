@@ -25,6 +25,10 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] GameObject coinBullet;
     [SerializeField] GameObject waveEffect;
 
+    [SerializeField] GameObject coinPref;
+
+    [SerializeField] GameObject GameManager;
+
 
     public int coinNum;
     [HideInInspector] public float resetTime = 0f;
@@ -35,6 +39,7 @@ public class PlayerControl : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        GameManager = GameObject.FindGameObjectWithTag("Manager");
     }
 
     // Update is called once per frame
@@ -83,8 +88,15 @@ public class PlayerControl : MonoBehaviour
 
         if (healthBar.health < 1f)
         {
-            healthBar.SetHealth(100f);
-            coinNum = (int)(coinNum * 0.5f);
+            int coinsLost = Mathf.FloorToInt(coinNum * 0.5f);
+            for (int i = 0; i < coinsLost; i++)
+            {
+                var coin = Instantiate(coinPref, transform.position + new Vector3(Random.Range(0, 3f), 0f, Random.Range(0, 3f)), Quaternion.identity);
+                coin.transform.GetChild(0).GetComponent<Coin>().onGainedCoin += GameManager.GetComponent<GameMgr>().DecCoinCnt;
+            }
+
+            healthBar.GainHealth(100f);
+            coinNum -= coinsLost;
             GetComponent<NavMeshAgent>().Warp(new Vector3(104.12f, -104.4f, 82.32f));
             resetTime = 3f;
         }
