@@ -740,6 +740,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5577106391382103144, guid: f51a932ffb9ed964798087493557491f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7293711850948137305, guid: f51a932ffb9ed964798087493557491f, type: 3}
       propertyPath: m_Name
       value: Player2
@@ -2805,10 +2809,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5156035053299459888, guid: f51a932ffb9ed964798087493557491f, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5156035053299459888, guid: f51a932ffb9ed964798087493557491f, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577106391382103144, guid: f51a932ffb9ed964798087493557491f, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7293711850948137305, guid: f51a932ffb9ed964798087493557491f, type: 3}
