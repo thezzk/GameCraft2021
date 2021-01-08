@@ -206,6 +206,11 @@ public class PlayerControl : MonoBehaviour
         playSound("itemSound");
         coinNum += 1;
     }
+    public void gainGoldCoin()
+    {
+        playSound("itemSound");
+        coinNum += 5;
+    }
     public void gainHealthPack()
     {
         playSound("healthSound");
