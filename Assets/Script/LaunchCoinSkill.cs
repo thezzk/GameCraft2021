@@ -11,7 +11,8 @@ public class LaunchCoinSkill : ISkill
         // player.coinNum -= 1;
         GameObject coinBulletPref = objs[1];
         GameObject firePoint = objs[2];
-        GameObject.Instantiate(coinBulletPref, firePoint.transform.position, firePoint.transform.rotation);
+        var bullet = GameObject.Instantiate(coinBulletPref, firePoint.transform.position, firePoint.transform.rotation);
+        (bullet.GetComponent<CoinBullet>()).setEmitter(player);
         return true;
     }
 

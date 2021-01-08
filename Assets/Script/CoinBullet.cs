@@ -10,6 +10,13 @@ public class CoinBullet : MonoBehaviour
 
     [SerializeField] int damage = 10;
 
+    private PlayerControl emitter;
+
+    public void setEmitter(PlayerControl emitPlayer)
+    {
+        emitter = emitPlayer;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -22,6 +29,15 @@ public class CoinBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other.tag == "Shield")
+        {
+            if(other.GetComponentInParent<PlayerControl>() != emitter)
+            {
+                Destroy(this.gameObject);
+                return;
+            }
+        }
+
         PlayerControl hitPlayer = other.GetComponent<PlayerControl>();
         if (hitPlayer != null)
         {
@@ -34,8 +50,8 @@ public class CoinBullet : MonoBehaviour
             _rb.velocity = -transform.forward * 10;
 
             //hitPlayer.coinNum = (int)(hitPlayer.coinNum * 0.5f);
+            Destroy(gameObject);
         }
-        Debug.Log(other.name);
-        Destroy(gameObject);
+        //Debug.Log(other.name);
     }
 }
