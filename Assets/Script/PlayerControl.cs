@@ -5,6 +5,15 @@ using UnityEngine.AI;
 
 public class PlayerControl : MonoBehaviour
 {
+    [SerializeField] AudioClip itemSound;
+    [SerializeField] AudioClip healthSound;
+    [SerializeField] AudioClip gunSound;
+    [SerializeField] AudioClip hurtSound;
+    [SerializeField] AudioClip deathSound;
+    [SerializeField] AudioClip waveSound;
+    [SerializeField] AudioClip rushSound;
+
+
     [SerializeField] public Healthbar healthBar;
     [SerializeField] string horizontalAxisName;
     [SerializeField] string verticalAxisName;
@@ -35,11 +44,13 @@ public class PlayerControl : MonoBehaviour
 
     Vector3 movement;
     NavMeshAgent agent;
+    AudioSource audioSource;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         GameManager = GameObject.FindGameObjectWithTag("Manager");
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -61,6 +72,7 @@ public class PlayerControl : MonoBehaviour
         {
             GetComponent<Animation>().clip = null;
         }
+
         float horizontalInput = Input.GetAxis(horizontalAxisName);
         float verticalInput = Input.GetAxis(verticalAxisName);
 
@@ -72,22 +84,28 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKeyDown(waveBtnKeyCode) && waveColdDown < Mathf.Epsilon)
         {
             Wave();
+            playSound("waveSound");
             waveColdDown = waveColdTime;
         }
         if (Input.GetKeyDown(fireBtnKeyCode) && fireColdDown < Mathf.Epsilon)
         {
             if (Fire())
+            {
+                playSound("gunSound");
                 fireColdDown = fireColdTime;
+            }
         }
         if (Input.GetKeyDown(rushBtnKeyCode) && rushColdDown < Mathf.Epsilon)
         {
             Rush();
+            playSound("rushSound");
             rushColdDown = rushColdTime;
         }
 
 
         if (healthBar.health < 1f)
         {
+            playSound("deathSound");
             int coinsLost = Mathf.FloorToInt(coinNum * 0.5f);
             for (int i = 0; i < coinsLost; i++)
             {
@@ -108,6 +126,38 @@ public class PlayerControl : MonoBehaviour
         // }
         UpdateColdDown();
 
+    }
+
+    public void playSound(string sound)
+    {
+        if (sound == "itemSound")
+        {
+            audioSource.PlayOneShot(itemSound);
+        }
+        else if (sound == "healthSound")
+        {
+            audioSource.PlayOneShot(healthSound);
+        }
+        else if (sound == "gunSound")
+        {
+            audioSource.PlayOneShot(gunSound);
+        }
+        else if (sound == "hurtSound")
+        {
+            audioSource.PlayOneShot(hurtSound);
+        }
+        else if (sound == "deathSound")
+        {
+            audioSource.PlayOneShot(deathSound);
+        }
+        else if (sound == "waveSound")
+        {
+            audioSource.PlayOneShot(waveSound);
+        }
+        else if (sound == "rushSound")
+        {
+            audioSource.PlayOneShot(rushSound);
+        }
     }
 
     void UpdateColdDown()
@@ -153,10 +203,12 @@ public class PlayerControl : MonoBehaviour
 
     public void gainCoin()
     {
+        playSound("itemSound");
         coinNum += 1;
     }
     public void gainHealthPack()
     {
+        playSound("healthSound");
         healthBar.SetHealth(healthBar.health + 30);
         if (healthBar.health > 100f)
         {
