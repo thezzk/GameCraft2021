@@ -20,6 +20,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] KeyCode waveBtnKeyCode;
     [SerializeField] KeyCode fireBtnKeyCode;
     [SerializeField] KeyCode rushBtnKeyCode;
+    [SerializeField] KeyCode laserBtnKeyCode;
     public float waveColdTime;
     public float fireColdTime;
     public float rushColdTime;
@@ -33,8 +34,9 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] GameObject firePoint;
     [SerializeField] GameObject coinBullet;
     [SerializeField] GameObject waveEffect;
-
+     
     [SerializeField] GameObject coinPref;
+    [SerializeField] GameObject laserPref;
 
     [SerializeField] GameObject GameManager;
 
@@ -100,6 +102,11 @@ public class PlayerControl : MonoBehaviour
             Rush();
             playSound("rushSound");
             rushColdDown = rushColdTime;
+        }
+        if (Input.GetKeyDown(laserBtnKeyCode))
+        {
+            Laser();
+
         }
 
 
@@ -168,6 +175,14 @@ public class PlayerControl : MonoBehaviour
         waveColdDown = Mathf.Max(0, waveColdDown);
         fireColdDown -= Time.deltaTime;
         fireColdDown = Mathf.Max(0, fireColdDown);
+    }
+
+    void Laser()
+    {
+        GameObject[] objArray = { gameObject, firePoint, laserPref };
+        var skill = new LaserSkill();
+        skill.begin(objArray);
+        StartCoroutine(skill.running());
     }
 
     void Rush()

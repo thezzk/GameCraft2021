@@ -314,7 +314,7 @@ Transform:
   m_GameObject: {fileID: 7293711850948137305}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.536, y: 0.45, z: 5.421}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 1239933000819005182}
   - {fileID: 647640502419962438}
@@ -341,7 +341,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5e4658c5af5688a41a4b0ccd38d17402, type: 2}
+  - {fileID: 2100000, guid: 16f2e2030b2257f47a4910590f0dca1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -405,13 +405,14 @@ MonoBehaviour:
   waveSound: {fileID: 8300000, guid: c57df37c7897248518fc658dd97b432b, type: 3}
   rushSound: {fileID: 8300000, guid: cc1c9d0e9bf554cc7ad9386e1858ce24, type: 3}
   healthBar: {fileID: 2689273670988180750}
-  horizontalAxisName: Horizontal
-  verticalAxisName: Vertical
-  waveBtnKeyCode: 44
-  fireBtnKeyCode: 46
-  rushBtnKeyCode: 47
+  horizontalAxisName: Horizontal2
+  verticalAxisName: Vertical2
+  waveBtnKeyCode: 103
+  fireBtnKeyCode: 104
+  rushBtnKeyCode: 106
+  laserBtnKeyCode: 107
   waveColdTime: 2
-  fireColdTime: 3
+  fireColdTime: 0
   rushColdTime: 4
   waveColdDown: 0
   fireColdDown: 0
@@ -420,6 +421,7 @@ MonoBehaviour:
   coinBullet: {fileID: 7274106202297671152, guid: 818e4b0bfec0e264e929c331f098f84e, type: 3}
   waveEffect: {fileID: 1373044229318360907, guid: a0783542346fe904381391d44b6ebbc5, type: 3}
   coinPref: {fileID: 7274106202297671152, guid: 4a6c3be85e5c34545b66b02b95145b66, type: 3}
+  laserPref: {fileID: 944424979753291709, guid: 7b603468a8432c74da95136a22e6e88f, type: 3}
   GameManager: {fileID: 0}
   coinNum: 0
   resetTime: 0
