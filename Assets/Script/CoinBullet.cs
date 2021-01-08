@@ -27,7 +27,15 @@ public class CoinBullet : MonoBehaviour
             hitPlayer.healthBar.TakeDamage(damage);
             //hitPlayer.coinNum = (int)(hitPlayer.coinNum * 0.5f);
         }
-        Debug.Log(other.name);
+        //Debug.Log(other.name);
+        //Destroy(gameObject);
+        //Destroy desructible walls
+        DestructibleWall hitDestructibleWall = other.GetComponent<DestructibleWall>();
+        if (hitDestructibleWall != null)
+        {
+            hitDestructibleWall.decreaseHealth();
+        }
+        
         Destroy(gameObject);
     }
 }
