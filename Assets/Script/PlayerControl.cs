@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class PlayerControl : MonoBehaviour
 {
+    [SerializeField] public Healthbar healthBar;
     [SerializeField] string horizontalAxisName;
     [SerializeField] string verticalAxisName;
     [SerializeField] KeyCode waveBtnKeyCode;
@@ -31,19 +32,19 @@ public class PlayerControl : MonoBehaviour
     Vector3 movement;
     NavMeshAgent agent;
 
-    private void Awake() 
+    private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();    
+        agent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!FindObjectOfType<GameMgr>().gameRunning) return;
+        if (!FindObjectOfType<GameMgr>().gameRunning) return;
 
-        if(resetTime > Mathf.Epsilon)
+        if (resetTime > Mathf.Epsilon)
         {
-            if(GetComponent<Animation>().clip == null)
+            if (GetComponent<Animation>().clip == null)
             {
                 GetComponent<Animation>().Play("PlayerBlink");
             }
@@ -63,14 +64,14 @@ public class PlayerControl : MonoBehaviour
         agent.Move(movement * Time.deltaTime * agent.speed);
         agent.SetDestination(transform.position + movement);
 
-        if(Input.GetKeyDown(waveBtnKeyCode) && waveColdDown < Mathf.Epsilon)
+        if (Input.GetKeyDown(waveBtnKeyCode) && waveColdDown < Mathf.Epsilon)
         {
             Wave();
             waveColdDown = waveColdTime;
         }
-        if(Input.GetKeyDown(fireBtnKeyCode) && fireColdDown < Mathf.Epsilon)
+        if (Input.GetKeyDown(fireBtnKeyCode) && fireColdDown < Mathf.Epsilon)
         {
-            if(Fire())
+            if (Fire())
                 fireColdDown = fireColdTime;
         }
         if (Input.GetKeyDown(rushBtnKeyCode) && rushColdDown < Mathf.Epsilon)
@@ -79,12 +80,22 @@ public class PlayerControl : MonoBehaviour
             rushColdDown = rushColdTime;
         }
 
+
+        if (healthBar.health < 1f)
+        {
+            healthBar.SetHealth(100f);
+            coinNum = (int)(coinNum * 0.5f);
+            GetComponent<NavMeshAgent>().Warp(new Vector3(24f, gameObject.transform.position.y, 9.3f));
+            resetTime = 3f;
+        }
+
+
         // if (agent.velocity.sqrMagnitude > Mathf.Epsilon)
         // {
         //     transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
         // }
         UpdateColdDown();
-    
+
     }
 
     void UpdateColdDown()
@@ -99,7 +110,7 @@ public class PlayerControl : MonoBehaviour
 
     void Rush()
     {
-        GameObject[] objArray= {gameObject};
+        GameObject[] objArray = { gameObject };
         var skill = new RushSkill();
         skill.begin(objArray);
         StartCoroutine(skill.running());
@@ -107,7 +118,7 @@ public class PlayerControl : MonoBehaviour
     }
     void Wave()
     {
-        GameObject[] objArray = { gameObject, waveEffect};
+        GameObject[] objArray = { gameObject, waveEffect };
         var skill = new WaveSkill();
         skill.begin(objArray);
         StartCoroutine(skill.running());
@@ -116,14 +127,14 @@ public class PlayerControl : MonoBehaviour
 
     bool Fire()
     {
-        GameObject[] objArray = { gameObject, coinBullet, firePoint};
+        GameObject[] objArray = { gameObject, coinBullet, firePoint };
         var skill = new LaunchCoinSkill();
         bool retval = skill.begin(objArray);
         skill.end();
         return retval;
     }
 
-    private void OnDrawGizmos() 
+    private void OnDrawGizmos()
     {
         //Gizmos.DrawWireSphere(this.transform.position, WaveSkill.range);
     }

@@ -7,21 +7,25 @@ public class CoinBullet : MonoBehaviour
     float speed = 10f;
     private float lifeTime = 10f;
 
+    [SerializeField] int damage = 50;
+
     // Update is called once per frame
     void Update()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
         lifeTime -= Time.deltaTime;
-        if(lifeTime < 0)
+        if (lifeTime < 0)
             Destroy(gameObject);
 
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerEnter(Collider other)
+    {
         PlayerControl hitPlayer = other.GetComponent<PlayerControl>();
-        if(hitPlayer != null)
+        if (hitPlayer != null)
         {
-            hitPlayer.coinNum = (int)(hitPlayer.coinNum * 0.5f);
+            hitPlayer.healthBar.TakeDamage(damage);
+            //hitPlayer.coinNum = (int)(hitPlayer.coinNum * 0.5f);
             Destroy(gameObject);
         }
     }
