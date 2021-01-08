@@ -29,9 +29,9 @@ public class CoinBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Shield")
+        if (other.tag == "Shield")
         {
-            if(other.GetComponentInParent<PlayerControl>() != emitter)
+            if (other.GetComponentInParent<PlayerControl>() != emitter)
             {
                 Destroy(this.gameObject);
                 return;
@@ -60,6 +60,6 @@ public class CoinBullet : MonoBehaviour
         {
             hitDestructibleWall.decreaseHealth();
         }
-        
+
     }
 }
