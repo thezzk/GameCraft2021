@@ -26,7 +26,8 @@ public class CoinBullet : MonoBehaviour
         {
             hitPlayer.healthBar.TakeDamage(damage);
             //hitPlayer.coinNum = (int)(hitPlayer.coinNum * 0.5f);
-            Destroy(gameObject);
         }
+        Debug.Log(other.name);
+        Destroy(gameObject);
     }
 }

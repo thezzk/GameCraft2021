@@ -21,15 +21,15 @@ public class GameMgr : MonoBehaviour
 
     IEnumerator waitAndGenCoin()
     {
-        while(gameRunning)
+        while (gameRunning)
         {
-            yield return new WaitForSeconds(3f);
-            if(coinCnt < maxCoin)
+            yield return new WaitForSeconds(1f);
+            if (coinCnt < maxCoin)
             {
                 int genPointIndex = Random.Range(0, coinGenPoints.transform.childCount);
                 Transform genPointTran = coinGenPoints.transform.GetChild(genPointIndex);
                 var coin = Instantiate(coinPref, genPointTran.position, Quaternion.identity);
-                coin.GetComponent<Coin>().onGainedCoin += DecCoinCnt;
+                coin.transform.GetChild(0).GetComponent<Coin>().onGainedCoin += DecCoinCnt;
                 coinCnt++;
             }
             if (healthPackCnt < maxHealthPack)
@@ -44,7 +44,7 @@ public class GameMgr : MonoBehaviour
         }
     }
 
-    private void DecCoinCnt()
+    public void DecCoinCnt()
     {
         Debug.Log("coin --");
         coinCnt--;
@@ -61,18 +61,18 @@ public class GameMgr : MonoBehaviour
         currentGameTime = GameTime;
     }
 
-    private void Update() 
+    private void Update()
     {
-        if(gameRunning)
+        if (gameRunning)
         {
             currentGameTime -= Time.deltaTime;
         }
-        if(currentGameTime < 0)
+        if (currentGameTime < 0)
         {
             currentGameTime = 0;
             gameRunning = false;
         }
     }
 
-    
+
 }
