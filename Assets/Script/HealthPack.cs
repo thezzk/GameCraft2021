@@ -9,10 +9,14 @@ public class HealthPack : MonoBehaviour
 
    private void OnTriggerEnter(Collider other) 
    {
-       Debug.Log("Health pack ++");
-       onGainedHealthPack();
-       Destroy(this.gameObject);
-       other.GetComponent<PlayerControl>().gainHealthPack();
+        var player = other.GetComponent<PlayerControl>();
+        if(player != null)
+        {
+            Debug.Log("Health pack ++");
+            onGainedHealthPack();
+            Destroy(this.gameObject);
+            other.GetComponent<PlayerControl>().gainHealthPack();
+        }
    }
  
 }
