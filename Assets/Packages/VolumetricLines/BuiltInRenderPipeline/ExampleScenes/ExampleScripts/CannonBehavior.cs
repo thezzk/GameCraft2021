@@ -9,27 +9,47 @@ public class CannonBehavior : MonoBehaviour
     public GameObject m_shotPrefab;
     public Texture2D m_guiTexture;
 
+    private bool canShoot;
+
+    private int bulletsLeft;
+
+
     // Use this for initialization
     void Start()
     {
-
+        canShoot = false;
+        bulletsLeft = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+    }
+
+    public void startShooting()
+    {
+        bulletsLeft = 3;
+        StartCoroutine(shootCoroutine());
+    }
+
+    public void enableLeftTurrets()
+    {
+        GetComponent<Animator>().SetInteger("state", 3);
+    }
+
+    IEnumerator shootCoroutine()
+    {
+        while (bulletsLeft > 0)
         {
-            m_cannonRot.transform.Rotate(Vector3.up, -Time.deltaTime * 100f);
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            m_cannonRot.transform.Rotate(Vector3.up, Time.deltaTime * 100f);
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
+            bulletsLeft--;
             GameObject go = GameObject.Instantiate(m_shotPrefab, m_muzzle.position, m_muzzle.rotation) as GameObject;
             GameObject.Destroy(go, 3f);
+            yield return new WaitForSeconds(1f);
+        }
+
+        if (bulletsLeft <= 0)
+        {
+            GetComponent<Animator>().SetInteger("state", 2);
         }
     }
 
