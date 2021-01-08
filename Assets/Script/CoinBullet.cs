@@ -25,6 +25,7 @@ public class CoinBullet : MonoBehaviour
         PlayerControl hitPlayer = other.GetComponent<PlayerControl>();
         if (hitPlayer != null)
         {
+            hitPlayer.playSound("hurtSound");
             hitPlayer.healthBar.TakeDamage(damage);
             Rigidbody _rb = hitPlayer.GetComponent<Rigidbody>();
             // NavMeshAgent _agent = hitPlayer.GetComponent<NavMeshAgent>();

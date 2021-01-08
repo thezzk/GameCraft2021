@@ -8,11 +8,15 @@ public class GameMgr : MonoBehaviour
     [SerializeField] Terrain genTerrain;
     [SerializeField] int maxCoin;
     [SerializeField] GameObject coinGenPoints;
-    [SerializeField] float GameTime = 50f;
+    [SerializeField] GameObject healthPackPref;
+    [SerializeField] int maxHealthPack;
+    [SerializeField] GameObject healthPackGenPoints;
+    [SerializeField] float GameTime = 50f;   
     [HideInInspector] public bool gameRunning = true;
     [HideInInspector] public float currentGameTime;
 
     private int coinCnt = 0;
+    private int healthPackCnt = 0;
 
 
     IEnumerator waitAndGenCoin()
@@ -28,17 +32,30 @@ public class GameMgr : MonoBehaviour
                 coin.transform.GetChild(0).GetComponent<Coin>().onGainedCoin += DecCoinCnt;
                 coinCnt++;
             }
+            if (healthPackCnt < maxHealthPack)
+            {
+                int genPointIndex = Random.Range(0, healthPackGenPoints.transform.childCount);
+                Transform genPointTran = healthPackGenPoints.transform.GetChild(genPointIndex);
+                var healthPack = Instantiate(healthPackPref, genPointTran.position, Quaternion.identity);
+                healthPack.GetComponent<HealthPack>().onGainedHealthPack += DecHealthPackCnt;
+                healthPackCnt++;
+            }
 
         }
     }
 
     public void DecCoinCnt()
     {
-        //Debug.Log("coin --");
+        Debug.Log("coin --");
         coinCnt--;
     }
 
-    private void Start()
+    private void DecHealthPackCnt()
+    {
+        Debug.Log("Health pack --");
+        healthPackCnt--;
+    }
+    private void Start() 
     {
         StartCoroutine(waitAndGenCoin());
         currentGameTime = GameTime;
