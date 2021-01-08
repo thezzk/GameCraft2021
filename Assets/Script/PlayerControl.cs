@@ -143,5 +143,13 @@ public class PlayerControl : MonoBehaviour
     {
         coinNum += 1;
     }
+    public void gainHealthPack()
+    {
+        healthBar.SetHealth(healthBar.health + 30);
+        if (healthBar.health > 100f)
+        {
+            healthBar.SetHealth(100f);
+        }
+    }
 
 }
