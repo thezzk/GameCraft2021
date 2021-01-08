@@ -7,7 +7,7 @@ public class CoinBullet : MonoBehaviour
     [SerializeField] float speed = 50f;
     private float lifeTime = 10f;
 
-    [SerializeField] int damage = 50;
+    [SerializeField] int damage = 10;
 
     // Update is called once per frame
     void Update()

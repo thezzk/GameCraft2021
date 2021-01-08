@@ -16,8 +16,8 @@ public class HealthBarMove : MonoBehaviour
     {
         transform.rotation = Camera.main.transform.rotation;
         Vector3 newPos = player.position;
-        newPos.x += 1.5f;
-        newPos.z += 2.6f;
+        newPos.x += 2.5f;
+        newPos.z += 5.0f;
 
         transform.position = newPos;
     }
