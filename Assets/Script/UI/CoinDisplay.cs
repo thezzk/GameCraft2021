@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CoinDisplay : MonoBehaviour
 {
@@ -10,8 +11,8 @@ public class CoinDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Text coinTxt = GetComponent<Text>();
-        coinTxt.text = player.coinNum.ToString();
-        
+        TextMeshProUGUI coinTxt = GetComponent<TextMeshProUGUI>();
+        coinTxt.text = "Coin: " + player.coinNum.ToString();
+
     }
 }
