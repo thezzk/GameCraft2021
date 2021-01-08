@@ -77,9 +77,9 @@ public class PlayerControl : MonoBehaviour
         float verticalInput = Input.GetAxis(verticalAxisName);
 
         movement.Set(horizontalInput, 0f, verticalInput);
-
         agent.Move(movement * Time.deltaTime * agent.speed);
         agent.SetDestination(transform.position + movement);
+        rotateThePlayer(movement);
 
         if (Input.GetKeyDown(waveBtnKeyCode) && waveColdDown < Mathf.Epsilon)
         {
@@ -118,14 +118,14 @@ public class PlayerControl : MonoBehaviour
             GetComponent<NavMeshAgent>().Warp(new Vector3(104.12f, -104.4f, 82.32f));
             resetTime = 3f;
         }
-
-
-        // if (agent.velocity.sqrMagnitude > Mathf.Epsilon)
-        // {
-        //     transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
-        // }
         UpdateColdDown();
 
+    }
+
+    private void rotateThePlayer(Vector3 movingDir)
+    {
+        if(movingDir.magnitude > Mathf.Epsilon)
+            transform.rotation = Quaternion.LookRotation(movingDir);
     }
 
     public void playSound(string sound)
