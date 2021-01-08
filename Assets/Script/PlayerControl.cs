@@ -56,8 +56,8 @@ public class PlayerControl : MonoBehaviour
         {
             GetComponent<Animation>().clip = null;
         }
-        float horizontalInput = Input.GetAxis(horizontalAxisName);
-        float verticalInput = Input.GetAxis(verticalAxisName);
+        float horizontalInput = -Input.GetAxis(verticalAxisName);
+        float verticalInput = Input.GetAxis(horizontalAxisName);
 
         movement.Set(horizontalInput, 0f, verticalInput);
 
