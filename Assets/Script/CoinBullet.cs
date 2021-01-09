@@ -31,7 +31,6 @@ public class CoinBullet : MonoBehaviour
     {
         if (other.tag == "Wall")
         {
-            Debug.Log("Hit wall");
             Destroy(gameObject);
         }
 

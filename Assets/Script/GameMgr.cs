@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameMgr : MonoBehaviour
 {
+    [SerializeField] GameObject CanvasTitle;
     [SerializeField] GameObject coinRushLabel;
     [SerializeField] Terrain genTerrain;
     [SerializeField] GameObject coinPref;
@@ -114,9 +115,9 @@ public class GameMgr : MonoBehaviour
         spawnCoinCoroutine = StartCoroutine(waitAndGenCoin());
     }
 
-    private void Awake() 
+    private void Awake()
     {
-        gameRunning  =false;    
+        gameRunning = false;
     }
 
     private void Start()
@@ -127,13 +128,26 @@ public class GameMgr : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (gameRunning)
+            {
+                gameRunning = false;
+                CanvasTitle.SetActive(true);
+            }
+            else
+            {
+                gameRunning = true;
+                CanvasTitle.SetActive(false);
+            }
+        }
         if (gameRunning)
         {
             currentGameTime -= Time.deltaTime;
         }
         else
         {
-            if(spawnCoinCoroutine != null)
+            if (spawnCoinCoroutine != null)
                 StopCoroutine(spawnCoinCoroutine);
             return;
         }
