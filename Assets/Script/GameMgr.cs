@@ -26,6 +26,7 @@ public class GameMgr : MonoBehaviour
     public int coinRushDelay;
     private int healthPackCnt = 0;
 
+    private Coroutine spawnCoinCoroutine;
 
     IEnumerator waitAndGenCoin()
     {
@@ -106,6 +107,13 @@ public class GameMgr : MonoBehaviour
     {
         healthPackCnt--;
     }
+
+    public void startGame()
+    {
+        gameRunning = true;
+        spawnCoinCoroutine = StartCoroutine(waitAndGenCoin());
+    }
+
     private void Awake() 
     {
         gameRunning  =false;    
@@ -114,7 +122,6 @@ public class GameMgr : MonoBehaviour
     private void Start()
     {
         coinRushDelay = Random.Range(10, 100); ;
-        StartCoroutine(waitAndGenCoin());
         currentGameTime = GameTime;
     }
 
@@ -126,9 +133,11 @@ public class GameMgr : MonoBehaviour
         }
         else
         {
+            if(spawnCoinCoroutine != null)
+                StopCoroutine(spawnCoinCoroutine);
             return;
         }
-        
+
         if (currentGameTime < 0)
         {
             currentGameTime = 0;

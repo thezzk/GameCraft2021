@@ -19,7 +19,7 @@ public class TitleUI : MonoBehaviour
         {
             gamingUI.gameObject.SetActive(true);
             gameObject.SetActive(false);
-            gameMgr.gameRunning = true;
+            gameMgr.startGame();
         }
     }
 }
