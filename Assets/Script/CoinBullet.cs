@@ -29,6 +29,12 @@ public class CoinBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other.tag == "Wall")
+        {
+            Debug.Log("Hit wall");
+            Destroy(gameObject);
+        }
+        
         if (other.tag == "Shield")
         {
             if (other.GetComponentInParent<PlayerControl>() != emitter)
