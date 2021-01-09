@@ -26,11 +26,12 @@ public class PlayerControl : MonoBehaviour
     public float waveColdTime;
     public float fireColdTime;
     public float rushColdTime;
+    public float laserColdTime;
 
     [HideInInspector] public float waveColdDown = 0;
     [HideInInspector] public float fireColdDown = 0;
     [HideInInspector] public float rushColdDown = 0;
-
+    [HideInInspector] public float laserColdDown = 0;
 
 
     [SerializeField] GameObject[] firePoints;
@@ -107,9 +108,10 @@ public class PlayerControl : MonoBehaviour
             playSound("rushSound");
             rushColdDown = rushColdTime;
         }
-        if (Input.GetKeyDown(laserBtnKeyCode))
+        if (Input.GetKeyDown(laserBtnKeyCode) && laserColdDown < Mathf.Epsilon)
         {
             Laser();
+            laserColdDown = laserColdTime;
 
         }
         if (Input.GetKeyDown(upgradeBtnKeyCode))
@@ -192,6 +194,8 @@ public class PlayerControl : MonoBehaviour
         waveColdDown = Mathf.Max(0, waveColdDown);
         fireColdDown -= Time.deltaTime;
         fireColdDown = Mathf.Max(0, fireColdDown);
+        laserColdDown -= Time.deltaTime;
+        laserColdDown = Mathf.Max(0, laserColdDown);
     }
 
     void Upgrade()
