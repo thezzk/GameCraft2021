@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class WaveSkill : ISkill
 {
     GameObject myself;
-    float skillTime = 1f;
+    public float skillTime;
     private float speed = 5f;
     public const float range = 4f;
     GameObject visualEffect;
