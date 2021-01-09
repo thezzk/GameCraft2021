@@ -17389,7 +17389,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7293711850948137307, guid: f51a932ffb9ed964798087493557491f, type: 3}
       propertyPath: m_Speed
-      value: 10
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293711850948137307, guid: f51a932ffb9ed964798087493557491f, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7293711850948137308, guid: f51a932ffb9ed964798087493557491f, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -20063,11 +20067,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7293711850948137307, guid: f51a932ffb9ed964798087493557491f, type: 3}
       propertyPath: m_Speed
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7293711850948137307, guid: f51a932ffb9ed964798087493557491f, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293711850948137307, guid: f51a932ffb9ed964798087493557491f, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7293711850948137310, guid: f51a932ffb9ed964798087493557491f, type: 3}
       propertyPath: m_RootOrder
