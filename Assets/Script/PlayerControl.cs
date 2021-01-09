@@ -22,7 +22,6 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] KeyCode fireBtnKeyCode;
     [SerializeField] KeyCode rushBtnKeyCode;
     [SerializeField] KeyCode laserBtnKeyCode;
-    [SerializeField] KeyCode upgradeBtnKeyCode;
     public float waveColdTime;
     public float fireColdTime;
     public float rushColdTime;
@@ -112,15 +111,21 @@ public class PlayerControl : MonoBehaviour
             Laser();
 
         }
-        if (Input.GetKeyDown(upgradeBtnKeyCode))
-        {
-            Upgrade();
-        }
-
 
 
         if (healthBar.health < 1f)
         {
+            if (gameObject.name == "Player1")
+            {
+                GameObject otherPlayer = GameObject.Find("Player2");
+                otherPlayer.GetComponent<PlayerControl>().UpgradeSkill();
+            }
+            else if (gameObject.name == "Player2")
+            {
+                GameObject otherPlayer = GameObject.Find("Player1");
+                otherPlayer.GetComponent<PlayerControl>().UpgradeSkill();
+            }
+
             playSound("deathSound");
             int coinsLost = Mathf.FloorToInt(coinNum * 0.5f);
             for (int i = 0; i < coinsLost; i++)
@@ -194,11 +199,10 @@ public class PlayerControl : MonoBehaviour
         fireColdDown = Mathf.Max(0, fireColdDown);
     }
 
-    void Upgrade()
+    public void UpgradeSkill()
     {
-        if (coinNum >= 15)
+        if (skillLevel < 7)
         {
-            coinNum -= 15;
             skillLevel++;
         }
     }
