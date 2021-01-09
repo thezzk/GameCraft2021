@@ -117,8 +117,9 @@ public class PlayerControl : MonoBehaviour
             for (int i = 0; i < coinsLost; i++)
             {
                 int genPointIndex = Random.Range(0, coinGenPoints.transform.childCount);
-                Transform genPointTran = coinGenPoints.transform.GetChild(genPointIndex);
-                var coin = Instantiate(coinPref, genPointTran.position, Quaternion.identity);
+                Vector3 genPointTranPos = coinGenPoints.transform.GetChild(genPointIndex).position;
+                genPointTranPos += new Vector3(Random.Range(0.05f, 0.05f), 0f, Random.Range(0.05f, 0.05f));
+                var coin = Instantiate(coinPref, genPointTranPos, Quaternion.identity);
                 coin.transform.GetChild(0).GetComponent<Coin>().onGainedCoin += GameManager.GetComponent<GameMgr>().DecCoinCnt;
                 //coinCnt++;
 
