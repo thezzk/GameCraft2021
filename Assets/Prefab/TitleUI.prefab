@@ -113,8 +113,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0.3, y: 317.2}
-  m_SizeDelta: {x: 605.115, y: 189.28586}
+  m_AnchoredPosition: {x: -0.000022888, y: 320}
+  m_SizeDelta: {x: 729.5034, y: 189.28586}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2791139893127607223
 CanvasRenderer:
@@ -157,7 +157,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Game Title
+  m_Text: Coin Monopoly
 --- !u!1 &2791139893200166391
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 2791139893200166389}
   - component: {fileID: 2791139893200166388}
   m_Layer: 5
-  m_Name: CanvasTitle
+  m_Name: TitleUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
