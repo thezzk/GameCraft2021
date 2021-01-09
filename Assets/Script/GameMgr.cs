@@ -17,7 +17,7 @@ public class GameMgr : MonoBehaviour
     [SerializeField] GameObject healthPackGenPoints;
     [SerializeField] float GameTime = 50f;
     [SerializeField] GameObject[] leftTurrets;
-    [HideInInspector] public bool gameRunning = true;
+    [HideInInspector] public bool gameRunning = false;
     [HideInInspector] public float currentGameTime;
 
     private int coinCnt = 0;
@@ -106,6 +106,11 @@ public class GameMgr : MonoBehaviour
     {
         healthPackCnt--;
     }
+    private void Awake() 
+    {
+        gameRunning  =false;    
+    }
+
     private void Start()
     {
         coinRushDelay = Random.Range(10, 100); ;
@@ -119,6 +124,11 @@ public class GameMgr : MonoBehaviour
         {
             currentGameTime -= Time.deltaTime;
         }
+        else
+        {
+            return;
+        }
+        
         if (currentGameTime < 0)
         {
             currentGameTime = 0;
