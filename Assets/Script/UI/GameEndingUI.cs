@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 public class GameEndingUI : MonoBehaviour
 {
     [SerializeField] GameObject drawLabel;
@@ -10,10 +10,14 @@ public class GameEndingUI : MonoBehaviour
     [SerializeField] GameObject blueWinLabel;
     [SerializeField] PlayerControl redPlayer;
     [SerializeField] PlayerControl bluePlayer;
+    [SerializeField] GameObject redScoreTxt;
+    [SerializeField] GameObject blueScoreTxt;
+    [SerializeField] GameObject byALotLabel;
+    [SerializeField] int byALotThreshould = 50;
 
     void Update()
     {
-        if(Input.anyKey)
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             SceneManager.LoadScene(0);
         }
@@ -21,6 +25,9 @@ public class GameEndingUI : MonoBehaviour
 
     public void UpdateRoundResult()
     {
+        redScoreTxt.GetComponent<Text>().text = redPlayer.coinNum.ToString();
+        blueScoreTxt.GetComponent<Text>().text = bluePlayer.coinNum.ToString();
+
         if(redPlayer.coinNum > bluePlayer.coinNum)
         {
             drawLabel.SetActive(false);
@@ -39,5 +46,14 @@ public class GameEndingUI : MonoBehaviour
             redWinLabel.SetActive(false);
             blueWinLabel.SetActive(false);
         }
+        if(Mathf.Abs(redPlayer.coinNum - bluePlayer.coinNum) >= 50)
+        {
+            byALotLabel.SetActive(true);
+        }
+        else
+        {
+            byALotLabel.SetActive(false);
+        }
+
     }
 }
