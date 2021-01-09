@@ -14,6 +14,7 @@ TagManager:
   - AttackCollider
   - UI
   - Manager
+  - Wall
   layers:
   - Default
   - TransparentFX

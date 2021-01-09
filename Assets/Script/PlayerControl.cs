@@ -34,7 +34,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] GameObject firePoint;
     [SerializeField] GameObject coinBullet;
     [SerializeField] GameObject waveEffect;
-     
+
     [SerializeField] GameObject coinPref;
     [SerializeField] GameObject laserPref;
 
@@ -131,7 +131,7 @@ public class PlayerControl : MonoBehaviour
 
     private void rotateThePlayer(Vector3 movingDir)
     {
-        if(movingDir.magnitude > Mathf.Epsilon)
+        if (movingDir.magnitude > Mathf.Epsilon)
             transform.rotation = Quaternion.LookRotation(movingDir);
     }
 
@@ -224,7 +224,7 @@ public class PlayerControl : MonoBehaviour
     public void gainGoldCoin()
     {
         playSound("itemSound");
-        coinNum += 5;
+        coinNum += 10;
     }
     public void gainHealthPack()
     {

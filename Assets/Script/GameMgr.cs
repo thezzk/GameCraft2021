@@ -29,21 +29,20 @@ public class GameMgr : MonoBehaviour
 
     IEnumerator waitAndGenCoin()
     {
-        coinRushDelay = Random.Range(10, 30);
+        coinRushDelay = Random.Range(10, 100);
         while (gameRunning)
         {
             yield return new WaitForSeconds(1f);
             if (coinRushDelay == 0)
             {
-                Debug.Log(coinRushDelay);
-                Debug.Log("Coin Rush!!");
                 coinRushLabel.GetComponent<Animator>().SetBool("rush", true);
                 int i = 0;
                 while (i < 30)
                 {
                     int genPointIndex = Random.Range(0, coinGenPoints.transform.childCount);
-                    Transform genPointTran = coinGenPoints.transform.GetChild(genPointIndex);
-                    var coin = Instantiate(coinPref, genPointTran.position, Quaternion.identity);
+                    Vector3 genPointTranPos = coinGenPoints.transform.GetChild(genPointIndex).position;
+                    genPointTranPos += new Vector3(Random.Range(0.05f, 0.05f), 0f, Random.Range(0.05f, 0.05f));
+                    var coin = Instantiate(coinPref, genPointTranPos, Quaternion.identity);
                     coin.transform.GetChild(0).GetComponent<Coin>().onGainedCoin += DecCoinCnt;
                     coinCnt++;
                     i++;
@@ -54,8 +53,9 @@ public class GameMgr : MonoBehaviour
             {
 
                 int genPointIndex = Random.Range(0, coinGenPoints.transform.childCount);
-                Transform genPointTran = coinGenPoints.transform.GetChild(genPointIndex);
-                var coin = Instantiate(coinPref, genPointTran.position, Quaternion.identity);
+                Vector3 genPointTranPos = coinGenPoints.transform.GetChild(genPointIndex).position;
+                genPointTranPos += new Vector3(Random.Range(0.05f, 0.05f), 0f, Random.Range(0.05f, 0.05f));
+                var coin = Instantiate(coinPref, genPointTranPos, Quaternion.identity);
                 coin.transform.GetChild(0).GetComponent<Coin>().onGainedCoin += DecCoinCnt;
                 coinCnt++;
             }
@@ -74,14 +74,15 @@ public class GameMgr : MonoBehaviour
             }
             if (coinRushDelay == 0)
             {
-                coinRushDelay = Random.Range(10, 30);
+                coinRushDelay = Random.Range(10, 100);
             }
 
             if (healthPackCnt < maxHealthPack)
             {
                 int genPointIndex = Random.Range(0, healthPackGenPoints.transform.childCount);
-                Transform genPointTran = healthPackGenPoints.transform.GetChild(genPointIndex);
-                var healthPack = Instantiate(healthPackPref, genPointTran.position, Quaternion.identity);
+                Vector3 genPointTranPos = healthPackGenPoints.transform.GetChild(genPointIndex).position;
+                genPointTranPos += new Vector3(Random.Range(0.05f, 0.05f), 0f, Random.Range(0.05f, 0.05f));
+                var healthPack = Instantiate(healthPackPref, genPointTranPos, Quaternion.identity);
                 healthPack.GetComponent<HealthPack>().onGainedHealthPack += DecHealthPackCnt;
                 healthPackCnt++;
             }
@@ -107,7 +108,7 @@ public class GameMgr : MonoBehaviour
     }
     private void Start()
     {
-        coinRushDelay = Random.Range(10, 30);
+        coinRushDelay = Random.Range(10, 100); ;
         StartCoroutine(waitAndGenCoin());
         currentGameTime = GameTime;
     }

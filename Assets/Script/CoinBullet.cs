@@ -29,6 +29,7 @@ public class CoinBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.tag);
         if (other.tag == "Shield")
         {
             if (other.GetComponentInParent<PlayerControl>() != emitter)
