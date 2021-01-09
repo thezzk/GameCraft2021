@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] KeyCode fireBtnKeyCode;
     [SerializeField] KeyCode rushBtnKeyCode;
     [SerializeField] KeyCode laserBtnKeyCode;
+    [SerializeField] KeyCode upgradeBtnKeyCode;
     public float waveColdTime;
     public float fireColdTime;
     public float rushColdTime;
@@ -31,7 +33,7 @@ public class PlayerControl : MonoBehaviour
 
 
 
-    [SerializeField] GameObject firePoint;
+    [SerializeField] GameObject[] firePoints;
     [SerializeField] GameObject coinBullet;
     [SerializeField] GameObject waveEffect;
 
@@ -43,6 +45,8 @@ public class PlayerControl : MonoBehaviour
 
     public int coinNum;
     [HideInInspector] public float resetTime = 0f;
+
+    [HideInInspector] public int skillLevel = 1;
 
     Vector3 movement;
     NavMeshAgent agent;
@@ -108,6 +112,11 @@ public class PlayerControl : MonoBehaviour
             Laser();
 
         }
+        if (Input.GetKeyDown(upgradeBtnKeyCode))
+        {
+            Upgrade();
+        }
+
 
 
         if (healthBar.health < 1f)
@@ -131,7 +140,7 @@ public class PlayerControl : MonoBehaviour
             coinNum -= coinsLost;
             GetComponent<NavMeshAgent>().Warp(new Vector3(104.12f, -104.4f, 82.32f));
             resetTime = 3f;
-            Wave(resetTime);
+            Wave(resetTime + 2f);
         }
         UpdateColdDown();
 
@@ -185,9 +194,18 @@ public class PlayerControl : MonoBehaviour
         fireColdDown = Mathf.Max(0, fireColdDown);
     }
 
+    void Upgrade()
+    {
+        if (coinNum >= 15)
+        {
+            coinNum -= 15;
+            skillLevel++;
+        }
+    }
+
     void Laser()
     {
-        GameObject[] objArray = { gameObject, firePoint, laserPref };
+        GameObject[] objArray = { gameObject, firePoints[0], laserPref };
         var skill = new LaserSkill();
         skill.begin(objArray);
         StartCoroutine(skill.running());
@@ -213,9 +231,10 @@ public class PlayerControl : MonoBehaviour
 
     bool Fire()
     {
-        GameObject[] objArray = { gameObject, coinBullet, firePoint };
+        GameObject[] objArray = { gameObject, coinBullet };
+        GameObject[] finalArray = objArray.Concat(firePoints).ToArray();
         var skill = new LaunchCoinSkill();
-        bool retval = skill.begin(objArray);
+        bool retval = skill.begin(finalArray);
         skill.end();
         return retval;
     }

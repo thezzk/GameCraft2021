@@ -55,6 +55,6 @@ public class CannonBehavior : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.DrawTexture(new Rect(0f, 0f, m_guiTexture.width / 2, m_guiTexture.height / 2), m_guiTexture);
+        //GUI.DrawTexture(new Rect(0f, 0f, m_guiTexture.width / 2, m_guiTexture.height / 2), m_guiTexture);
     }
 }
