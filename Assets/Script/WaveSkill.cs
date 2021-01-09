@@ -16,7 +16,7 @@ public class WaveSkill : ISkill
         myself = objs[0];
         var visualEffectPref = objs[1];
         visualEffect = GameObject.Instantiate(visualEffectPref, myself.transform);
-        visualEffect.transform.localScale = new Vector3(range, visualEffect.transform.localScale.y, range);  
+        visualEffect.transform.localScale = new Vector3(range, visualEffect.transform.localScale.y, range);
         return true;
     }
 
@@ -31,7 +31,7 @@ public class WaveSkill : ISkill
         float startTime = Time.time;
 
 
-        while(true)
+        while (true)
         {
             if (Time.time - startTime > skillTime)
             {
@@ -39,14 +39,13 @@ public class WaveSkill : ISkill
                 yield break;
             }
 
-            foreach(var player in otherplayer)
+            foreach (var player in otherplayer)
             {
-                if(player.gameObject != myself)
+                if (player.gameObject != myself)
                 {
-                    Vector3 dirToOtherPlayer = player.transform.position  - myself.transform.position;
-                    if(dirToOtherPlayer.magnitude > range) continue;
+                    Vector3 dirToOtherPlayer = player.transform.position - myself.transform.position;
+                    if (dirToOtherPlayer.magnitude > range) continue;
                     var moveVec = dirToOtherPlayer.normalized * (Mathf.Sqrt(range * range) - dirToOtherPlayer.magnitude);
-                    Debug.Log(moveVec.magnitude);
                     player.GetComponent<NavMeshAgent>().Move(moveVec * speed * Time.deltaTime);
                 }
             }

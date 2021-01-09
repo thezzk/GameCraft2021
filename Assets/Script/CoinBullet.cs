@@ -29,12 +29,12 @@ public class CoinBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Wall")
+        if (other.tag == "Wall")
         {
             Debug.Log("Hit wall");
             Destroy(gameObject);
         }
-        
+
         if (other.tag == "Shield")
         {
             if (other.GetComponentInParent<PlayerControl>() != emitter)
@@ -47,7 +47,7 @@ public class CoinBullet : MonoBehaviour
         PlayerControl hitPlayer = other.GetComponent<PlayerControl>();
         if (hitPlayer != null)
         {
-            if (other.GetComponent<PlayerControl>() != emitter)
+            if (hitPlayer != emitter)
             {
                 hitPlayer.playSound("hurtSound");
                 hitPlayer.healthBar.TakeDamage(damage);
