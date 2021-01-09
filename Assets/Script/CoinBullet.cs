@@ -29,7 +29,6 @@ public class CoinBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.tag);
         if (other.tag == "Shield")
         {
             if (other.GetComponentInParent<PlayerControl>() != emitter)
@@ -42,16 +41,19 @@ public class CoinBullet : MonoBehaviour
         PlayerControl hitPlayer = other.GetComponent<PlayerControl>();
         if (hitPlayer != null)
         {
-            hitPlayer.playSound("hurtSound");
-            hitPlayer.healthBar.TakeDamage(damage);
-            Rigidbody _rb = hitPlayer.GetComponent<Rigidbody>();
-            // NavMeshAgent _agent = hitPlayer.GetComponent<NavMeshAgent>();
-            // _rb.isKinematic = false;
-            // _agent.enabled = false;
-            _rb.velocity = -transform.forward * 10;
+            if (other.GetComponent<PlayerControl>() != emitter)
+            {
+                hitPlayer.playSound("hurtSound");
+                hitPlayer.healthBar.TakeDamage(damage);
+                Rigidbody _rb = hitPlayer.GetComponent<Rigidbody>();
+                // NavMeshAgent _agent = hitPlayer.GetComponent<NavMeshAgent>();
+                // _rb.isKinematic = false;
+                // _agent.enabled = false;
+                _rb.velocity = -transform.forward * 10;
 
-            //hitPlayer.coinNum = (int)(hitPlayer.coinNum * 0.5f);
-            Destroy(gameObject);
+                //hitPlayer.coinNum = (int)(hitPlayer.coinNum * 0.5f);
+                Destroy(gameObject);
+            }
         }
         //Debug.Log(other.name);
         //Destroy(gameObject);
