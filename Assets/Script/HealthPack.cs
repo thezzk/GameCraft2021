@@ -5,18 +5,17 @@ using UnityEngine;
 
 public class HealthPack : MonoBehaviour
 {
-   public event Action onGainedHealthPack; 
+    public event Action onGainedHealthPack;
 
-   private void OnTriggerEnter(Collider other) 
-   {
+    private void OnTriggerEnter(Collider other)
+    {
         var player = other.GetComponent<PlayerControl>();
-        if(player != null)
+        if (player != null)
         {
-            Debug.Log("Health pack ++");
             onGainedHealthPack();
             Destroy(this.gameObject);
             other.GetComponent<PlayerControl>().gainHealthPack();
         }
-   }
- 
+    }
+
 }

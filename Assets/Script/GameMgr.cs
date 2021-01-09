@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameMgr : MonoBehaviour
 {
+    [SerializeField] GameObject coinRushLabel;
     [SerializeField] Terrain genTerrain;
     [SerializeField] GameObject coinPref;
     [SerializeField] int maxCoin;
@@ -22,30 +23,33 @@ public class GameMgr : MonoBehaviour
     private int coinCnt = 0;
     private int goldCoinCnt = 0;
     public int goldCoinDelay2 = 10;
-    public int coinRushDelay = Random.Range(10,30);
+    public int coinRushDelay;
     private int healthPackCnt = 0;
 
 
     IEnumerator waitAndGenCoin()
     {
-        coinRushDelay = Random.Range(10,30);
+        coinRushDelay = Random.Range(10, 30);
         while (gameRunning)
         {
             yield return new WaitForSeconds(1f);
-            if (coinRushDelay == 0 ) {
+            if (coinRushDelay == 0)
+            {
                 Debug.Log(coinRushDelay);
                 Debug.Log("Coin Rush!!");
+                coinRushLabel.GetComponent<Animator>().SetBool("rush", true);
                 int i = 0;
-                while (i < 30) {
+                while (i < 30)
+                {
                     int genPointIndex = Random.Range(0, coinGenPoints.transform.childCount);
                     Transform genPointTran = coinGenPoints.transform.GetChild(genPointIndex);
                     var coin = Instantiate(coinPref, genPointTran.position, Quaternion.identity);
                     coin.transform.GetChild(0).GetComponent<Coin>().onGainedCoin += DecCoinCnt;
-                    coinCnt++; 
-                    i++;                   
+                    coinCnt++;
+                    i++;
                 }
-                   
-            }            
+
+            }
             else if (coinCnt < maxCoin)
             {
 
@@ -62,15 +66,17 @@ public class GameMgr : MonoBehaviour
                 var goldCoin = Instantiate(goldCoinPref, genPointTran.position, Quaternion.identity);
                 goldCoin.transform.GetChild(0).GetComponent<GoldCoin>().onGainedCoin += DecGoldCoinCnt;
                 goldCoinCnt++;
-                
+
             }
-            if (goldCoinDelay2 == 0) {
+            if (goldCoinDelay2 == 0)
+            {
                 goldCoinDelay2 = 10;
             }
-            if (coinRushDelay == 0) {
-                coinRushDelay = Random.Range(10,30);
+            if (coinRushDelay == 0)
+            {
+                coinRushDelay = Random.Range(10, 30);
             }
-            
+
             if (healthPackCnt < maxHealthPack)
             {
                 int genPointIndex = Random.Range(0, healthPackGenPoints.transform.childCount);
@@ -82,29 +88,26 @@ public class GameMgr : MonoBehaviour
             goldCoinDelay2--;
             //Debug.Log(goldCoinDelay2);
             coinRushDelay--;
-            Debug.Log(coinRushDelay);
 
         }
     }
 
     public void DecCoinCnt()
     {
-        Debug.Log("coin --");
         coinCnt--;
     }
     public void DecGoldCoinCnt()
     {
-        Debug.Log("Gold coin --");
         goldCoinCnt--;
     }
 
     private void DecHealthPackCnt()
     {
-        Debug.Log("Health pack --");
         healthPackCnt--;
     }
     private void Start()
     {
+        coinRushDelay = Random.Range(10, 30);
         StartCoroutine(waitAndGenCoin());
         currentGameTime = GameTime;
     }
@@ -134,7 +137,6 @@ public class GameMgr : MonoBehaviour
         if (canShootLeftTurrets && shouldStartShootingLeftTurrets == 0)
         {
             int chosenLeftTurrets = Random.Range(0, 3);
-            Debug.Log("chosen: " + chosenLeftTurrets.ToString());
             int[] chosen = new int[] { };
             if (chosenLeftTurrets == 0)
             {
@@ -152,7 +154,6 @@ public class GameMgr : MonoBehaviour
             for (int i = 0; i < chosen.Length; i++)
             {
                 int index = chosen[i];
-                Debug.Log(index);
                 if (leftTurrets[index].GetComponent<Animator>().GetInteger("state") == 3)
                 {
                     leftTurrets[index].GetComponent<Animator>().SetInteger("state", 1);
