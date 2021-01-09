@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameEndingUI : MonoBehaviour
 {
@@ -12,7 +13,10 @@ public class GameEndingUI : MonoBehaviour
 
     void Update()
     {
-         //TODO, if any key, reload scene
+        if(Input.anyKey)
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     public void UpdateRoundResult()
