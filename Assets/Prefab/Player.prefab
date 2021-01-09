@@ -758,9 +758,11 @@ MonoBehaviour:
   waveColdTime: 2
   fireColdTime: 0
   rushColdTime: 4
+  laserColdTime: 0
   waveColdDown: 0
   fireColdDown: 0
   rushColdDown: 0
+  laserColdDown: 0
   firePoints:
   - {fileID: 5381703153394756648}
   - {fileID: 4599061831069517983}
@@ -1144,6 +1146,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7293711850948137310}
     m_Modifications:
+    - target: {fileID: 3823428022247872734, guid: 9751eea0412c6594e83e025c23c817fa, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 622.67456
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823428022247872734, guid: 9751eea0412c6594e83e025c23c817fa, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 149.08482
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823428022247872734, guid: 9751eea0412c6594e83e025c23c817fa, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 147
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823428022247872734, guid: 9751eea0412c6594e83e025c23c817fa, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 117
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338090004163370925, guid: 9751eea0412c6594e83e025c23c817fa, type: 3}
+      propertyPath: m_fontSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338090004163370925, guid: 9751eea0412c6594e83e025c23c817fa, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 4530900595079915562, guid: 9751eea0412c6594e83e025c23c817fa, type: 3}
       propertyPath: m_Name
       value: Healthbar Canvas
