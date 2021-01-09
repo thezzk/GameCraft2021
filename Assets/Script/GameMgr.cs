@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+enum GameState
+{
+    Prepare,
+    Running,
+    End
+}
+
 public class GameMgr : MonoBehaviour
 {
     [SerializeField] GameObject coinRushLabel;
@@ -17,6 +24,10 @@ public class GameMgr : MonoBehaviour
     [SerializeField] GameObject healthPackGenPoints;
     [SerializeField] float GameTime = 50f;
     [SerializeField] GameObject[] leftTurrets;
+
+    [SerializeField] GameObject gamingUI;
+    [SerializeField] GameObject endingUI;
+
     [HideInInspector] public bool gameRunning = false;
     [HideInInspector] public float currentGameTime;
 
@@ -27,6 +38,8 @@ public class GameMgr : MonoBehaviour
     private int healthPackCnt = 0;
 
     private Coroutine spawnCoinCoroutine;
+
+    [HideInInspector] GameState gameState;
 
     IEnumerator waitAndGenCoin()
     {
@@ -111,18 +124,21 @@ public class GameMgr : MonoBehaviour
     public void startGame()
     {
         gameRunning = true;
+        gameState = GameState.Running;
         spawnCoinCoroutine = StartCoroutine(waitAndGenCoin());
     }
 
     private void Awake() 
     {
-        gameRunning  =false;    
+        gameRunning  =false;
+        gameState = GameState.Prepare;    
     }
 
     private void Start()
     {
         coinRushDelay = Random.Range(10, 100); ;
         currentGameTime = GameTime;
+
     }
 
     private void Update()
@@ -134,7 +150,7 @@ public class GameMgr : MonoBehaviour
         else
         {
             if(spawnCoinCoroutine != null)
-                StopCoroutine(spawnCoinCoroutine);
+                StopCoroutine(spawnCoinCoroutine);    
             return;
         }
 
@@ -142,6 +158,14 @@ public class GameMgr : MonoBehaviour
         {
             currentGameTime = 0;
             gameRunning = false;
+            if(gameState == GameState.Running)
+            {
+                gameState = GameState.End;
+                gamingUI.SetActive(false);
+                endingUI.SetActive(true);
+                endingUI.GetComponent<GameEndingUI>().UpdateRoundResult();
+            }
+
         }
         bool canShootLeftTurrets = true;
         for (int i = 0; i < leftTurrets.Length; i++)
