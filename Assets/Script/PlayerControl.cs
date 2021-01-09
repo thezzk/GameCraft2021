@@ -85,7 +85,7 @@ public class PlayerControl : MonoBehaviour
 
         if (Input.GetKeyDown(waveBtnKeyCode) && waveColdDown < Mathf.Epsilon)
         {
-            Wave();
+            Wave(1f);
             playSound("waveSound");
             waveColdDown = waveColdTime;
         }
@@ -130,6 +130,7 @@ public class PlayerControl : MonoBehaviour
             coinNum -= coinsLost;
             GetComponent<NavMeshAgent>().Warp(new Vector3(104.12f, -104.4f, 82.32f));
             resetTime = 3f;
+            Wave(resetTime);
         }
         UpdateColdDown();
 
@@ -199,10 +200,11 @@ public class PlayerControl : MonoBehaviour
         StartCoroutine(skill.running());
 
     }
-    void Wave()
+    void Wave(float skillTime)
     {
         GameObject[] objArray = { gameObject, waveEffect };
         var skill = new WaveSkill();
+        skill.skillTime = skillTime;
         skill.begin(objArray);
         StartCoroutine(skill.running());
 
