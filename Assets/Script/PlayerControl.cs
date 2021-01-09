@@ -39,7 +39,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] GameObject laserPref;
 
     [SerializeField] GameObject GameManager;
-
+    [SerializeField] GameObject coinGenPoints;
 
     public int coinNum;
     [HideInInspector] public float resetTime = 0f;
@@ -116,8 +116,14 @@ public class PlayerControl : MonoBehaviour
             int coinsLost = Mathf.FloorToInt(coinNum * 0.5f);
             for (int i = 0; i < coinsLost; i++)
             {
-                var coin = Instantiate(coinPref, transform.position + new Vector3(Random.Range(0, 3f), 0f, Random.Range(0, 3f)), Quaternion.identity);
+                int genPointIndex = Random.Range(0, coinGenPoints.transform.childCount);
+                Transform genPointTran = coinGenPoints.transform.GetChild(genPointIndex);
+                var coin = Instantiate(coinPref, genPointTran.position, Quaternion.identity);
                 coin.transform.GetChild(0).GetComponent<Coin>().onGainedCoin += GameManager.GetComponent<GameMgr>().DecCoinCnt;
+                //coinCnt++;
+
+                //var coin = Instantiate(coinPref, transform.position + new Vector3(Random.Range(0, 3f), 0f, Random.Range(0, 3f)), Quaternion.identity);
+                //coin.transform.GetChild(0).GetComponent<Coin>().onGainedCoin += GameManager.GetComponent<GameMgr>().DecCoinCnt;
             }
 
             healthBar.GainHealth(100f);
