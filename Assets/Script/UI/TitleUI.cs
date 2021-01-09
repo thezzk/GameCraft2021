@@ -15,7 +15,7 @@ public class TitleUI : MonoBehaviour
 
     private void Update()
     {
-        if(Input.anyKeyDown)
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             gamingUI.gameObject.SetActive(true);
             gameObject.SetActive(false);
